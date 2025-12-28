@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: ai-agent-oauth-helper
+
+  ai:
+    mcp:
+      server:
+        protocol: SSE
+        type: SYNC
+        resource-change-notification: true
+        tool-change-notification: true
+        prompt-change-notification: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:8080/oauth2/jwks"
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "mcp-client"
+              client-secret: "{noop}secret"
+              scopes:
+                - "mcp"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "client_credentials"
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ai_agent_oauth_helper
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true

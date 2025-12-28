@@ -1,18 +1,14 @@
-package com.mat.jamr.aiagentoauthhelper.entity;
+package com.mat.jamr.aiagentoauthhelper.booking.entity;
 
+import com.mat.jamr.aiagentoauthhelper.user.entity.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "username"),
-    @UniqueConstraint(columnNames = "email")
-})
-public class User {
+@Table(name = "bookings")
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,15 +16,16 @@ public class User {
 
     @NotNull
     @NotBlank
-    @Size(min = 3, max = 50)
-    @Column(nullable = false, unique = true, length = 50)
-    private String username;
+    @Column(name = "booking_reference", nullable = false, unique = true)
+    private String bookingReference;
 
     @NotNull
-    @NotBlank
-    @Email
-    @Column(nullable = false, unique = true)
-    private String email;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -48,13 +45,14 @@ public class User {
     }
 
     // Default constructor
-    public User() {
+    public Booking() {
     }
 
     // Constructor with fields
-    public User(String username, String email) {
-        this.username = username;
-        this.email = email;
+    public Booking(String bookingReference, User user, String description) {
+        this.bookingReference = bookingReference;
+        this.user = user;
+        this.description = description;
     }
 
     // Getters and Setters
@@ -66,20 +64,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getBookingReference() {
+        return bookingReference;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setBookingReference(String bookingReference) {
+        this.bookingReference = bookingReference;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreatedAt() {

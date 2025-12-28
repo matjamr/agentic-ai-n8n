@@ -1,13 +1,13 @@
-package com.mat.jamr.aiagentoauthhelper.repository;
+package com.mat.jamr.aiagentoauthhelper.user.repository;
 
-import com.mat.jamr.aiagentoauthhelper.entity.User;
+import com.mat.jamr.aiagentoauthhelper.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByUsername(String username);
 
