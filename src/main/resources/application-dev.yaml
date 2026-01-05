@@ -1,0 +1,16 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java,src/main/resources
+      exclude: static/**,public/**,templates/**
+    livereload:
+      enabled: true
+    remote:
+      secret: dev-secret
+
+logging:
+  level:
+    root: INFO
+    com.mat.jamr.aiagentoauthhelper: DEBUG
+

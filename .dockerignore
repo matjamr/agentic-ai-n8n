@@ -1,0 +1,36 @@
+# Gradle
+.gradle/
+build/
+!build/libs/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker
+docker-compose.yml
+Dockerfile*
+.dockerignore
+
+# Logs
+*.log
+
+# n8n data
+n8n_data/
+
+# Other
+HELP.md
+
