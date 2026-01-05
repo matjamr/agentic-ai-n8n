@@ -1,7 +1,6 @@
 package com.mat.jamr.aiagentoauthhelper.mcp;
 
 import com.mat.jamr.aiagentoauthhelper.authorization.SessionService;
-import com.mat.jamr.aiagentoauthhelper.authorization.dto.Intent;
 import com.mat.jamr.aiagentoauthhelper.booking.entity.Booking;
 import com.mat.jamr.aiagentoauthhelper.booking.repository.BookingRepository;
 import org.springframework.ai.tool.annotation.Tool;
@@ -20,13 +19,8 @@ public class AuthorizationTool {
         this.sessionService = sessionService;
     }
 
-    @Tool(name = "authorize", description = "Authorizes a user with intent LOGISTIC_INFORMATION by validating booking reference and phone number. Returns a session token upon successful authorization.")
-    public String authorize(Intent intent, String bookingReference, String phoneNumber) {
-        // Validate intent
-        if (intent != Intent.LOGISTIC_INFORMATION) {
-            return "Error: Unsupported intent. Only LOGISTIC_INFORMATION is supported.";
-        }
-
+    @Tool(name = ToolMetadata.AUTHORIZE_LOGISTIC_INFORMATION_TOOL_NAME, description = ToolMetadata.AUTHORIZE_LOGISTIC_INFORMATION_TOOL_DESCRIPTION)
+    public String authorizeLogisticInformation(String bookingReference, String phoneNumber) {
         // Find booking by reference
         Optional<Booking> bookingOpt = bookingRepository.findByBookingReference(bookingReference);
         if (bookingOpt.isEmpty()) {

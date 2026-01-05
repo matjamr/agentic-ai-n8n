@@ -19,14 +19,11 @@ public class GetLogisticDetailsTool {
         this.securityService = securityService;
     }
 
-    @Tool(name = "get_logistic_details", description = "Retrieves logistic details for a booking by booking reference. Requires a valid session token in the X-Session-Token or Authorization header (Bearer token) obtained from the authorize tool.")
-    public String getLogisticDetails(String bookingReference) {
-        // Extract session token from headers
-        String sessionToken = securityService.extractSessionTokenFromHeaders();
-        
-        // Validate session token
-        if (sessionToken == null || !securityService.validateTokenForBooking(sessionToken, bookingReference)) {
-            return "Error: Invalid or unauthorized session token. Please provide a valid session token in the X-Session-Token or Authorization header (Bearer token).";
+    @Tool(name = ToolMetadata.GET_LOGISTIC_DETAILS_TOOL_NAME, description = ToolMetadata.GET_LOGISTIC_DETAILS_TOOL_DESCRIPTION)
+    public String getLogisticDetails(String sessionId, String bookingReference) {
+        // Validate sessionId
+        if (sessionId == null || sessionId.isBlank() || !securityService.validateTokenForBooking(sessionId, bookingReference)) {
+            return "Error: Invalid or unauthorized sessionId. Please provide a valid sessionId obtained from the authorize_logistic_information tool.";
         }
 
         Optional<Booking> booking = bookingRepository.findByBookingReference(bookingReference);

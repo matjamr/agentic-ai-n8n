@@ -28,7 +28,8 @@ repositories {
 }
 
 ext {
-    set('springAiVersion', "2.0.0-SNAPSHOT")
+    set('springBootVersion', '3.4.5')
+    set('springAiVersion', "2.0.0-M1")
 }
 
 dependencies {
@@ -45,6 +46,7 @@ dependencies {
 
 dependencyManagement {
     imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
         mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
     }
 }
